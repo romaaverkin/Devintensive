@@ -3,6 +3,9 @@ package romaaverkingmail.com.dev_intensive
 import org.junit.Test
 
 import org.junit.Assert.*
+import romaaverkingmail.com.dev_intensive.extensions.TimeUnits
+import romaaverkingmail.com.dev_intensive.extensions.add
+import romaaverkingmail.com.dev_intensive.extensions.format
 import romaaverkingmail.com.dev_intensive.models.User
 import java.util.*
 
@@ -48,10 +51,16 @@ class ExampleUnitTest {
     fun testCopy() {
         val user = User.makeUser("John Wick")
         var user2 = user.copy(lastVisit = Date())
-        var user3 = user.copy(lastName = "Cena", lastVisit = Date())
+        var user3 = user.copy(lastVisit = Date().add(-2, TimeUnits.SECOND))
+        var user4 = user.copy(lastName = "Cena", lastVisit = Date().add(2, TimeUnits.HOUR))
 
-        println("""
-            
-        """.trimIndent())
+        println(
+            """
+            ${user.lastVisit?.format()}
+            ${user2.lastVisit?.format()}
+            ${user3.lastVisit?.format()}
+            ${user4.lastVisit?.format()}
+        """.trimIndent()
+        )
     }
 }
